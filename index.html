@@ -1,24 +1,60 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
   </head>
   <body>
+
+    <section class="tweet-stream">
+
+      <ul>  
+
+      </ul>
+
+    </section>
+
+
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
-        $body.html('');
+        var $ul = $('ul');
+        // $body.html('');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
+        function lengthCheck() {
+          var len = streams.home.length;
+          return function() { return len; }
+        }
+
+        var originalLength = lengthCheck();
+        var index;
+        
+        setInterval(function() {
+
+          index = streams.home.length - 1;
+          
+          while(index >= 0){
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
+
+          var timeTweetedInput = tweet.created_at.toString();
+          var reformatDate = timeTweetedInput.slice(4, 24);
+          var timeAgo = moment(reformatDate, 'MMM DD YYYY h:mma ZZ').fromNow();
+
+          var $tweetDetails = $('<li class="tweetDetails"><strong>' + tweet.user + '</strong> <span class="userHandle">@' + tweet.user + '</span> &middot; ' + timeAgo +'<div>'+ tweet.message + '</div></li>')
+
+          // $tweetDetails.appendTo($ul);
+          $ul.prepend($tweetDetails);
+          // var $tweet = $('<li class="tweet"></li>');
+          // $tweet.text('@' + tweet.user + ': ' + tweet.message);
+
+          // $tweet.appendTo($ul);
+
           index -= 1;
         }
+
+        }, 2000);
 
       });
 
