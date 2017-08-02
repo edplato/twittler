@@ -79,12 +79,15 @@ body {
 
 .container {
   margin: 0 auto;
-  width: 1218px;
-  padding: 56px 14px 15px 14px;
+  width: 1190px;
+}
+
+.feed-content {
+  padding: 56px 0 15px 0;
 }
 
 .tweet-stream {
-  width: 588px;
+  width: 604px;
 }
 
 .col {
@@ -136,6 +139,59 @@ strong {
 
 cite, em {
   font-style: italic;
+}
+
+/*
+  ========================================
+  Header
+  ========================================
+*/
+
+.global-header {
+  width: 100%;
+  text-align: center;
+  height: 46px;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  line-height: 44px;
+}
+
+.left-nav {
+  font-size: 13px;
+  float: left;
+}
+
+.right-nav {
+  float: right;
+}
+
+.fa {
+  color: #1da1f2;
+}
+
+/*
+  ========================================
+  Navigation
+  ========================================
+*/
+
+.nav {
+  display: inline-block;
+}
+
+.nav li {
+  display: inline-block;
+  margin-right: 15px;
+  vertical-align: top;
+}
+
+.nav li:last-child {
+  margin-right: 0;
+}
+
+.twitterLogo {
+  color: #1da1f2;
+  margin-top: 8px;
 }
 
 /*

@@ -2,6 +2,7 @@
 <html>
   <head>
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="jquery.js"></script>
@@ -9,7 +10,37 @@
   </head>
   <body>
 
-  <div class="container">
+  <!-- Header -->
+
+  <header class="global-header">
+      <div class="container group">
+
+      <nav class="nav left-nav">
+        <ul>
+          <li><a href="#"><i class="fa fa-home fa-lg fa-fw" aria-hidden="true"></i>Home</a></li><!--
+          --><li><a href="#"><i class="fa fa-bolt fa-lg fa-fw" aria-hidden="true"></i>Moments</a></li><!--
+          --><li><a href="#"><i class="fa fa-bell fa-lg fa-fw" aria-hidden="true"></i>Notifications</a></li><!--
+          --><li><a href="#"><i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>Messages</a></li>
+        </ul>
+      </nav>
+      
+      <a href="#"><i class="fa fa-twitter fa-2x twitterLogo" aria-hidden="true"></i></a>
+     
+      <nav class="nav right-nav">
+        <ul>
+          <li><input type="text" name="searchBox"></li><!--
+          --><li><a href="#"><i class="fa fa-twitter fa-2x twitterLogo" aria-hidden="true"></i></a></li><!--
+          --><li><button>Tweet</button></li>
+        </ul>
+      </nav>
+
+      </div>
+
+  </header>
+
+  <!-- Feed Content Container -->
+
+  <div class="container feed-content">
 
     <section class="col left-col">
     </section>
@@ -43,7 +74,7 @@
             setTimeout(function(){
             }, 1500);
           } else {
-          let $first = $('li').first();
+          let $first = $('.first');
 
           var tweet = streams.home[index];
 
