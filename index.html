@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
   </head>
   <body>
 
-    <section class="tweet-stream">
+  <div class="container">
+
+    <section class="col left-col">
+    </section>
+
+    <section class="col tweet-stream">
 
       <ul>  
         <li class="first"></li>
-
       </ul>
 
     </section>
 
+    <section class="col right-col">
+    </section>
+
+  </div>
 
     <script>
 
@@ -42,7 +52,9 @@
           var timeAgo = moment(reformatDate, 'MMM DD YYYY h:mma ZZ').fromNow();
 
           var userName = checkUser(tweet.user);
-          var $tweetDetails = $('<li class="tweetDetails"><strong>' + userName + '</strong> <span class="userHandle">@' + tweet.user + '</span> &middot; ' + timeAgo +'<div>'+ tweet.message + '</div></li>')
+          var $tweetDetails = $(
+            '<li class="tweetDetails"><div><strong>' + userName + '</strong> <span class="userHandle">@' + tweet.user + '</span> &middot; ' + timeAgo +'</div>' 
+            +'<div>'+ tweet.message + '</div></li>');
 
           $first.prepend($tweetDetails);
           // var $tweet = $('<li class="tweet"></li>');
