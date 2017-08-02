@@ -61,6 +61,7 @@ body {
   font-size: 14px;
   font-family: 'Lato', sans-serif;
   color: #14171a;
+  overflow: scroll;
 }
 
 /*
@@ -154,11 +155,15 @@ cite, em {
   background: #fff;
   border-bottom: 1px solid rgba(0,0,0,0.25);
   line-height: 44px;
+  font-size: 13px;
 }
 
 .left-nav {
-  font-size: 13px;
   float: left;
+}
+
+.left-nav li:hover {
+  border-bottom: 4px solid #1da1f2;
 }
 
 .right-nav {
@@ -167,6 +172,34 @@ cite, em {
 
 .fa {
   color: #1da1f2;
+}
+
+.form-search {
+  position: relative;
+}
+
+.header-search {
+  color: rgba(0,0,0,0.5);
+  border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background: #e6ecf0;
+  height: 32px;
+  line-height: 16px;
+  padding: 8px;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.header-search:focus {
+  outline: none;
+  background: #fff;
+}
+
+.search-icon {
+  position: absolute;
+  color: rgba(0,0,0,0.5);
+  top: 16px;
+  right: 10px;
 }
 
 /*
@@ -181,8 +214,12 @@ cite, em {
 
 .nav li {
   display: inline-block;
-  margin-right: 15px;
+  margin: 0 10px 0 10px;
   vertical-align: top;
+}
+
+.nav li:first-child {
+  margin-left: 0;
 }
 
 .nav li:last-child {
@@ -192,6 +229,11 @@ cite, em {
 .twitterLogo {
   color: #1da1f2;
   margin-top: 8px;
+}
+
+a {
+  color: #14171a;
+  text-decoration: none;
 }
 
 /*
