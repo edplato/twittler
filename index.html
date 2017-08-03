@@ -31,8 +31,8 @@
           <li><div><form class="form-search">
             <input class="header-search" type="text" placeholder="Search Twittler" name="searchBox"><i class="fa fa-search search-icon" aria-hidden="true"></i>
           </form></div></li><!--
-          --><li><a href="#"><i class="fa fa-twitter fa-2x twitterLogo" aria-hidden="true"></i></a></li><!--
-          --><li><button>Tweet</button></li>
+          --><li><a href="#"><img class="header-profile-pic" src="assets/images/eaplato.jpg" alt="Ed Plato"></a></li><!--
+          --><li><button class="header-tweet-button">Tweet</button></li>
         </ul>
       </nav>
 
@@ -41,10 +41,25 @@
   </header>
 
   <!-- Feed Content Container -->
+  <div class="header-poster"></div>
+  <div class="header-bar"></div>
 
   <div class="container feed-content">
 
+
     <section class="col left-col">
+
+       <div class="col-content card">
+            <img src="assets/images/eaplato.jpg" alt="Ed Plato">
+              <ul>
+                <li><a href="https://twitter.com/eaplato">Ed Plato</a></li>
+                <li><a href="https://twitter.com/eaplato">@eaplato</a></li>
+              </ul>
+              <p>The Official Twitter Page of Ed Plato</p>
+       </div>
+
+       <div class="col-content trends"></div>
+
     </section>
 
     <section class="col tweet-stream">
@@ -56,6 +71,19 @@
     </section>
 
     <section class="col right-col">
+
+      <div class="col-content who-to-follow">
+        <div class="who-to-follow-header"><span>Who to follow</span> &middot;<a href="#">Refresh</a>&middot;<a href="#">View All</a></div>
+      </div>
+      
+      <div class="col-content legal">
+        <p>&copy; 2017 Twittler <a href="#">About</a> <a href="#">Help Center</a> <a href="#">Terms</a> <a href="#">Privacy policy</a> <a href="#">Cookies</a> <a href="#">Ads info</a> <a href="#">Brand</a> <a href="#">Blog</a> <a href="#">Status</a> <a href="#">Apps</a> <a href="#">Jobs</a> <a href="#">Businesses</a> <a href="#">Developers</a></p>
+      </div>
+
+      <div class="col-content advertise">
+        <a class="advertise" href="#"><i class="fa fa-check-square-o fa-fw" aria-hidden="true"></i>Advertise with Twittler</a>
+      </div>
+
     </section>
 
   </div>
@@ -70,7 +98,6 @@
         
         // constant stream interval to grab new tweets
         setInterval(function() {
-
           // if new tweets run low, delay stream
           if(streams.home.length - 5 <= index){
             setTimeout(function(){
@@ -86,7 +113,7 @@
 
           var userName = checkUser(tweet.user);
           var $tweetDetails = $(
-            '<li class="tweetDetails"><div><strong>' + userName + '</strong> <span class="userHandle">@' + tweet.user + '</span> &middot; ' + timeAgo +'</div>' 
+            '<li class="tweetDetails ' + tweet.user + '"><div><strong>' + userName + '</strong> <span class="userHandle">@' + tweet.user + '</span> &middot; ' + timeAgo + '</div>' 
             +'<div>'+ tweet.message + '</div></li>');
 
           $first.prepend($tweetDetails);
@@ -95,7 +122,7 @@
 
           index++;
           }
-        }, 500);
+        }, 2500);
 
         // returns username that matches twitter handle
         function checkUser(handleInput) {

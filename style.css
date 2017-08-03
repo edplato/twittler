@@ -84,29 +84,32 @@ body {
 }
 
 .feed-content {
-  padding: 56px 0 15px 0;
+  padding: 10px 0 15px 0;
 }
 
 .tweet-stream {
-  width: 604px;
+  width: 584px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .col {
   display: inline-block;
   vertical-align: top;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
-.left-col,
-.right-col {
+.right-col,
+.left-col {
   width: 290px;
-  height: 300px;
-  background: #fff;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
+.col-content {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  height: 200px;
+  background: #fff;
+}
 /*
   =====================
   Clearfix
@@ -134,12 +137,47 @@ body {
   ========================================
 */
 
+h1, h3, h4, h5, p {
+  color: #648880;
+  margin-bottom: 22px;
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 44px;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 44px;
+}
+
+h3 {
+  font-size: 21px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  color: #a9b2b9;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
 strong {
   font-weight: 700;
 }
 
 cite, em {
   font-style: italic;
+}
+
+a {
+  color: #14171a;
+  text-decoration: none;
 }
 
 /*
@@ -160,6 +198,16 @@ cite, em {
 
 .left-nav {
   float: left;
+  font-weight: 700;
+}
+
+.left-nav a {
+  padding: 20px 0 20px 0;
+}
+
+.left-nav li:hover,
+.left-nav a:hover {
+  color: #1da1f2;
 }
 
 .left-nav li:hover {
@@ -168,10 +216,6 @@ cite, em {
 
 .right-nav {
   float: right;
-}
-
-.fa {
-  color: #1da1f2;
 }
 
 .form-search {
@@ -200,6 +244,40 @@ cite, em {
   color: rgba(0,0,0,0.5);
   top: 16px;
   right: 10px;
+}
+
+.header-profile-pic {
+  height: 32px;
+  border-radius: 20px;
+  margin-top: 6px;
+  }
+
+.header-tweet-button {
+  background: #1da1f2;
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  padding: 8px 16px 8px 16px;
+}
+
+.header-tweet-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(29, 161, 242, 0.5);
+}
+
+.header-poster {
+  background: url('assets/images/pexels-photo-462443.jpeg') no-repeat;
+  background-size: cover;
+  height: 420px;
+  width: 100%;
+}
+
+.header-bar {
+  width: 100%;
+  height: 60px;
+  background: #fff;
 }
 
 /*
@@ -231,9 +309,23 @@ cite, em {
   margin-top: 8px;
 }
 
-a {
-  color: #14171a;
-  text-decoration: none;
+/*
+  ========================================
+  Profile Card
+  ========================================
+*/
+
+.card {
+  padding-bottom: 22px;
+  text-align: center;
+}
+
+.card img {
+  border-radius: 50%;
+  border: 6px solid #fff;
+  height: 200px;
+  margin: -176px 0 22px 0;
+  vertical-align: top;
 }
 
 /*
@@ -248,4 +340,40 @@ a {
   border-bottom: 1px solid #e6ecf0;
   background: #fff;
   cursor: pointer;
+}
+
+
+.who-to-follow-header {
+  display: block;
+}
+
+.who-to-follow-header a {
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 12px;
+  color: #1da1f2;
+}
+
+.who-to-follow-header span {
+  font-size: 20px;
+}
+
+
+.legal {
+  margin-bottom: 1px;
+  display: block;
+  font-size: 12px;
+  height: 90px;
+  overflow:hidden;
+}
+
+.legal a {
+  color: grey;
+}
+
+.advertise {
+  overflow:hidden;
+  height: 40px;
+  font-size: 12px;
+  color: #1da1f2;
 }
