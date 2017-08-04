@@ -58,7 +58,9 @@
               <p id="card-profileDescription">The Official Twittler Page of Ed Plato</p>
        </div>
 
-       <div class="col-content trends"></div>
+       <div class="col-content trends">
+
+       </div>
 
     </section>
 
@@ -89,8 +91,6 @@
   </div>
 
     <script>
-
-
 
       $(document).ready(function(){
         
@@ -123,6 +123,8 @@
         var $ul = $('ul');
         
         var index = 0;
+        var streamRestrict = false;
+        var currentUser = '';
         
         // constant stream interval to grab new tweets
         setInterval(function() {
@@ -133,7 +135,11 @@
           } else {
           let $first = $('.first');
 
-          var tweet = streams.home[index];
+          if(streamRestrict){
+            var tweet = streams.users[currentUser][index];
+          } else {
+            var tweet = streams.home[index];
+          }
 
           var timeTweetedInput = tweet.created_at.toString();
           var reformatDate = timeTweetedInput.slice(4, 24);
@@ -148,7 +154,6 @@
           index++;
           }
         }, 2500);
-
 
         // faux page change on user click 
 
@@ -165,7 +170,7 @@
             let userTwitterLink = 'https://twitter.com/' + getUserName;
             $('#card-userNameLink, #card-userHandleLink').attr('href', userTwitterLink)
             $('#card-userNameLink').text($users[getUserName].userName)
-            $('#card-userHandleLink').text('@'+[getUserName])
+            $('#card-userHandleLink').text('@'+getUserName)
             $('#card-profileDescription').text('The Official Twittler Page of ' + $users[getUserName].userName);
             $('#card-userNameLink, #card-userHandleLink, #card-profileDescription').fadeTo(500, 1);
           });
@@ -176,7 +181,34 @@
           });
 
           $('.tweetDetails').not('.'+getUserName).hide();
+          showPage(getUserName);
         });
+
+        function showPage(input){
+          let startingStreamLength = streams.users[input].length;
+          setStreamRestriction(input);
+
+          for(var i = 0; i < startingStreamLength; i++){
+              let $first = $('.first');
+
+              var tweet = streams.users[input][i];
+
+              var timeTweetedInput = tweet.created_at.toString();
+              var reformatDate = timeTweetedInput.slice(4, 24);
+              var timeAgo = moment(reformatDate, 'MMM DD YYYY h:mma ZZ').fromNow();
+
+              var $tweetDetails = $(
+                '<li class="tweetDetails ' + input + '"><div><strong>' + $users[input].userName + '</strong> <span class="userHandle">@' + input + '</span> &middot; ' + timeAgo + '</div>' 
+                +'<div>'+ tweet.message + '</div></li>');
+
+              $first.prepend($tweetDetails);
+          }
+        };
+
+        function setStreamRestriction(inputName){
+          streamRestrict = true;
+          currentUser = inputName;
+        };
 
       });
 

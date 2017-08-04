@@ -271,9 +271,12 @@ a {
   box-shadow: 0 0 0 2px rgba(29, 161, 242, 0.5);
 }
 
+.header-poster {
+  height: 240px;
+  overflow: hidden;
+}
+
 .header-poster img{
-  // background: url('assets/images/pexels-photo-462443.jpeg') no-repeat;
-  // background-size: cover;
   vertical-align: top;
   display: block;
   width: 100%;
@@ -346,7 +349,6 @@ a {
   background: #fff;
   cursor: pointer;
 }
-
 
 .who-to-follow-header {
   display: block;
