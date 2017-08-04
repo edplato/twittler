@@ -196,6 +196,10 @@ a {
   font-size: 13px;
 }
 
+.global-header ul {
+  height: 45px;
+}
+
 .left-nav {
   float: left;
   font-weight: 700;
@@ -267,10 +271,11 @@ a {
   box-shadow: 0 0 0 2px rgba(29, 161, 242, 0.5);
 }
 
-.header-poster {
-  background: url('assets/images/pexels-photo-462443.jpeg') no-repeat;
-  background-size: cover;
-  height: 420px;
+.header-poster img{
+  // background: url('assets/images/pexels-photo-462443.jpeg') no-repeat;
+  // background-size: cover;
+  vertical-align: top;
+  display: block;
   width: 100%;
 }
 
@@ -357,7 +362,6 @@ a {
 .who-to-follow-header span {
   font-size: 20px;
 }
-
 
 .legal {
   margin-bottom: 1px;

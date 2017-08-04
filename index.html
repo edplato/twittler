@@ -41,7 +41,7 @@
   </header>
 
   <!-- Feed Content Container -->
-  <div class="header-poster"></div>
+  <div class="header-poster"><img src='assets/images/arm-sound-retro-audio-19951.jpg' id="poster-pic"></div>
   <div class="header-bar"></div>
 
   <div class="container feed-content">
@@ -50,12 +50,12 @@
     <section class="col left-col">
 
        <div class="col-content card">
-            <img src="assets/images/eaplato.jpg" alt="Ed Plato">
+            <img src="assets/images/eaplato.jpg" alt="Ed Plato" id="card-pic">
               <ul>
-                <li><a href="https://twitter.com/eaplato">Ed Plato</a></li>
-                <li><a href="https://twitter.com/eaplato">@eaplato</a></li>
+                <li><a href="https://twitter.com/eaplato" id="card-userNameLink">Ed Plato</a></li>
+                <li><a href="https://twitter.com/eaplato" id="card-userHandleLink">@eaplato</a></li>
               </ul>
-              <p>The Official Twitter Page of Ed Plato</p>
+              <p id="card-profileDescription">The Official Twittler Page of Ed Plato</p>
        </div>
 
        <div class="col-content trends"></div>
@@ -75,7 +75,7 @@
       <div class="col-content who-to-follow">
         <div class="who-to-follow-header"><span>Who to follow</span> &middot;<a href="#">Refresh</a>&middot;<a href="#">View All</a></div>
       </div>
-      
+
       <div class="col-content legal">
         <p>&copy; 2017 Twittler <a href="#">About</a> <a href="#">Help Center</a> <a href="#">Terms</a> <a href="#">Privacy policy</a> <a href="#">Cookies</a> <a href="#">Ads info</a> <a href="#">Brand</a> <a href="#">Blog</a> <a href="#">Status</a> <a href="#">Apps</a> <a href="#">Jobs</a> <a href="#">Businesses</a> <a href="#">Developers</a></p>
       </div>
@@ -90,7 +90,35 @@
 
     <script>
 
+
+
       $(document).ready(function(){
+        
+        // add global user info
+
+        var $users = streams.users;
+
+        $users.eaplato = [];
+        $users.eaplato.poster = 'assets/images/arm-sound-retro-audio-19951.jpg';
+        $users.eaplato.cardpic = 'assets/images/eaplato.jpg';
+        $users.eaplato.userName = 'Ed Plato';     
+
+        $users.mracus.poster = 'assets/images/pexels-photo-462443.jpeg';
+        $users.mracus.cardpic = 'assets/images/mracus.jpeg';
+        $users.mracus.userName = 'Marcus Phillips';
+        
+        $users.sharksforcheap.poster = 'assets/images/pexels-photo-433604.jpeg';
+        $users.sharksforcheap.cardpic = 'assets/images/sharksforcheap.jpeg';
+        $users.sharksforcheap.userName = 'Anthony Phillips';
+
+        $users.shawndrost.poster = 'assets/images/pexels-photo-374777.jpeg';
+        $users.shawndrost.cardpic = 'assets/images/shawndrost.jpg';
+        $users.shawndrost.userName = 'Shawn Drost';
+
+        $users.douglascalhoun.poster = 'assets/images/pexels-photo-327231.jpeg';
+        $users.douglascalhoun.cardpic = 'assets/images/douglascalhoun.jpg';
+        $users.douglascalhoun.userName = 'Douglas Calhoun';
+
         var $body = $('body');
         var $ul = $('ul');
         
@@ -111,38 +139,44 @@
           var reformatDate = timeTweetedInput.slice(4, 24);
           var timeAgo = moment(reformatDate, 'MMM DD YYYY h:mma ZZ').fromNow();
 
-          var userName = checkUser(tweet.user);
           var $tweetDetails = $(
-            '<li class="tweetDetails ' + tweet.user + '"><div><strong>' + userName + '</strong> <span class="userHandle">@' + tweet.user + '</span> &middot; ' + timeAgo + '</div>' 
+            '<li class="tweetDetails ' + tweet.user + '"><div><strong>' + $users[tweet.user].userName + '</strong> <span class="userHandle">@' + tweet.user + '</span> &middot; ' + timeAgo + '</div>' 
             +'<div>'+ tweet.message + '</div></li>');
 
           $first.prepend($tweetDetails);
-          // var $tweet = $('<li class="tweet"></li>');
-          // $tweet.text('@' + tweet.user + ': ' + tweet.message);
 
           index++;
           }
         }, 2500);
 
-        // returns username that matches twitter handle
-        function checkUser(handleInput) {
-          switch(handleInput) {
-            case "shawndrost":
-              return "Shawn Drost";
-              break;
-            case "mracus":
-              return "Marcus Phillips";
-              break;
-            case "douglascalhoun":
-              return "Douglas Calhoun";
-              break;
-            case "sharksforcheap":
-              return "Anthony Phillips";
-              break;
-            default: 
-              return "";
-          }
-        };
+
+        // faux page change on user click 
+
+        $('li').on('click', '.tweetDetails', function() {
+          let getUserName = $(this).attr('class').split(' ')[1];
+
+          $('#card-pic').fadeOut(475, function() {
+            $('#card-pic').attr('src', $users[getUserName].cardpic);
+            $('#card-pic').attr('alt', $users[getUserName].userName);            
+            $('#card-pic').fadeTo(1500, 1);
+          });
+
+          $('#card-userNameLink, #card-userHandleLink, #card-profileDescription').fadeOut(475, function() {
+            let userTwitterLink = 'https://twitter.com/' + getUserName;
+            $('#card-userNameLink, #card-userHandleLink').attr('href', userTwitterLink)
+            $('#card-userNameLink').text($users[getUserName].userName)
+            $('#card-userHandleLink').text('@'+[getUserName])
+            $('#card-profileDescription').text('The Official Twittler Page of ' + $users[getUserName].userName);
+            $('#card-userNameLink, #card-userHandleLink, #card-profileDescription').fadeTo(500, 1);
+          });
+
+          $('#poster-pic').fadeOut(50, function() {
+            $('#poster-pic').attr('src', $users[getUserName].poster);
+            $('#poster-pic').fadeTo(1500, 1);
+          });
+
+          $('.tweetDetails').not('.'+getUserName).hide();
+        });
 
       });
 
