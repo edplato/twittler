@@ -411,22 +411,49 @@ a {
 
 /*
   ========================================
+  Top Hashes
+  ========================================
+*/
+
+.topHashes {
+  height: 160px;
+}
+
+#topHashes {
+  margin-top: 10px;
+}
+
+.topHashesLeft {
+  float: left;
+  color: #898b8c;
+}
+
+.topHashesRight {
+  float: right;
+  padding-right: 25px;
+  font-size: 120px;
+  color: #dbf0fd;
+  user-select: none;
+}
+
+/*
+  ========================================
   Additional Sections
   ========================================
 */
 
-.follow-header {
+.section-header {
   display: block;
 }
 
-.follow-header a {
+.section-header a {
   padding-left: 4px;
   padding-right: 4px;
   font-size: 12px;
   color: #1da1f2;
 }
 
-.follow-header span {
+.section-header span {
   font-size: 20px;
 }
 
@@ -483,7 +510,7 @@ a {
 }
 
 .modal-content {
-  background-color: #c4e6fc;
+  background-color: #dbf0fd;
   border-radius: 8px;
   margin: 15% auto; 
   border: 1px solid #888;
@@ -513,8 +540,9 @@ a {
 
 #modal-textarea {
   font-size: 18px;
+  font-family: 'Lato', sans-serif;
   width: 100%;
-  height: 80px;
+  height: 94px;
   border-radius: 6px;
   resize: none;
 }

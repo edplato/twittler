@@ -36,6 +36,8 @@ $(document).ready(function(){
   $users.data.douglascalhoun.userName = 'Douglas Calhoun';
   $users.data.douglascalhoun.tweetCount = 0;
 
+  streams.topHashes = {};
+
   var index = 0;
   var streamRestrict = false;
   var currentUser = '';
@@ -69,6 +71,8 @@ $(document).ready(function(){
       +'<div>'+ tweet.message + '</div></li>');
 
     $first.prepend($tweetDetails);
+
+    // addTopHashes(tweet.message);
 
     if(streamRestrict) { 
       $users.data[currentUser].tweetCount = len;
@@ -128,6 +132,8 @@ $(document).ready(function(){
           + input + '</span> &middot; ' + getTime(tweet) + '</div>' 
           +'<div>'+ tweet.message + '</div></li>');
 
+        // addTopHashes(tweet.message);
+
         $first.prepend($tweetDetails);
     }
     $users.data[input].tweetCount = streamLength;
@@ -169,7 +175,46 @@ $(document).ready(function(){
   $('#modal-submit').on('click', function() {
     $('.tweetModal').fadeOut(400);
   });
-  
+
+  // top hashes in tweets
+  // find hashes in tweet messages and add to topHashes object
+  function searchTopHashes(){
+    let tweets = streams.home;
+    for(var i = 0; i < tweets.length; i++){
+      if(tweets[i].message.includes('#')){
+        let hashStart = tweets[i].message.indexOf('#');
+        let hashCut = tweets[i].message.slice(hashStart+1);
+
+        if(streams.topHashes[hashCut] !== undefined){
+          streams.topHashes[hashCut] += 1;
+        } else {
+          streams.topHashes[hashCut] = 1;
+        }
+
+      } else {
+        continue;
+      }
+    }
+  };
+
+  // sort hashses in topHashes object and return sorted array
+  function sortTopHashes(){
+    return Object.keys(streams.topHashes).sort(function(a,b) {
+      return streams.topHashes[a] - streams.topHashes[b]
+    });
+  }
+
+  $('#refreshTopHashes').on('click', function(){
+    searchTopHashes();
+    $('.addedTopHash').remove();
+    let topHashes = sortTopHashes();
+    let len = topHashes.length <= 5 ? topHashes.length : 5;
+
+    for(var i = 0; i < len; i++){
+      $('#topHashes').append('<li class="addedTopHash">#'+topHashes[i]+'</li>');
+    }
+  });
+
   // external tool tip for hover on small pictures
   var changeTooltipPosition = function(event) {
     var tooltipX = event.pageX - 8;
