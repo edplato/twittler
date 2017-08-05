@@ -63,21 +63,22 @@ $(document).ready(function(){
       var tweet = $users[currentUser][len-1];
       var delayParameter2 = $users.data[currentUser].tweetCount;
       var delayParameter1 = len;
+      var $tweetDetails = makeTweet(tweet, 'singleStream');
     } else {
       var tweet = streams.home[index];
       var delayParameter1 = streams.home.length - 5;
       var delayParameter2 = index;
+      var $tweetDetails = makeTweet(tweet);
     }
 
     // delay to allow stream to catch up if running low
     if(delayParameter1 <= delayParameter2){
       setTimeout(function(){
-      }, 5000);
+      }, 3000);
     } else {
 
-    // find top of stream, make tweet, and prepend at top of stream
+    // prepend tweet top top of stream
     let $first = $('.first');
-    let $tweetDetails = makeTweet(tweet);
     $first.prepend($tweetDetails);
 
     // counter based on single user vs all user stream
@@ -122,6 +123,7 @@ $(document).ready(function(){
       // my all user stream vs. individual user streams
       if(getUserName === 'eaplato'){
         $('.tweetVisibility').show();
+        $('.singleStream').hide();
         streamRestrict = false;
         currentUser = 'eaplato';
       } else {
@@ -140,7 +142,7 @@ $(document).ready(function(){
 
         let tweet = $users[input][i];
         let $first = $('.first');
-        let $tweetDetails = makeTweet(tweet);
+        let $tweetDetails = makeTweet(tweet, 'singleStream');
         $first.prepend($tweetDetails);
     }
     $users.data[input].tweetCount = streamLength;
@@ -161,9 +163,9 @@ $(document).ready(function(){
   };
 
   // make tweet function
-  function makeTweet(tweet){
+  function makeTweet(tweet, singleStream){
     return $(
-          '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener"><div><strong>' 
+          '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener ' + singleStream +'"><div><strong>' 
           + $users.data[tweet.user].userName + '</strong> <span>@' 
           + tweet.user + '</span> &middot; ' + getTime(tweet) + '</div>' 
           +'<div>'+ tweet.message + '</div></li>');
