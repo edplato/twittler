@@ -42,10 +42,22 @@ $(document).ready(function(){
   var streamRestrict = false;
   var currentUser = '';
   
+  // initial populate of tweets to fill page on load
+  while(index <= 10){
+    let tweet = streams.home[index];
+    let $first = $('.first');
+    let $tweetDetails = makeTweet(tweet);
+    $first.prepend($tweetDetails);
+    index++;
+  };
+
+  // initial populate of top hashes
+  showTopHashes();
+
   // constant stream interval to grab new tweets
   setInterval(function() {
 
-    // different action for single user vs all users
+    // different action for single user vs all user stream
     if(streamRestrict) {
       var len = $users[currentUser].length;
       var tweet = $users[currentUser][len-1];
@@ -57,23 +69,18 @@ $(document).ready(function(){
       var delayParameter2 = index;
     }
 
+    // delay to allow stream to catch up if running low
     if(delayParameter1 <= delayParameter2){
       setTimeout(function(){
       }, 5000);
     } else {
 
+    // find top of stream, make tweet, and prepend at top of stream
     let $first = $('.first');
-
-    var $tweetDetails = $(
-      '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener"><div><strong>' 
-      + $users.data[tweet.user].userName + '</strong> <span class="userHandle">@' 
-      + tweet.user + '</span> &middot; ' + getTime(tweet) + '</div>' 
-      +'<div>'+ tweet.message + '</div></li>');
-
+    let $tweetDetails = makeTweet(tweet);
     $first.prepend($tweetDetails);
 
-    // addTopHashes(tweet.message);
-
+    // counter based on single user vs all user stream
     if(streamRestrict) { 
       $users.data[currentUser].tweetCount = len;
     } else {
@@ -85,37 +92,46 @@ $(document).ready(function(){
 
   // faux page change on user click 
   $('ul').on('click', '.tweetClickListener', function() {
+    // get user name that was clicked
     let getUserName = $(this).attr('class').split(' ')[1];
 
-    $('#card-pic').fadeOut(175, function() {
-      $('#card-pic').attr('src', $users.data[getUserName].cardpic);
-      $('#card-pic').attr('alt', $users.data[getUserName].userName);            
-      $('#card-pic').fadeTo(300, 1);
-    });
+    if(currentUser !== getUserName){
+      // replace card user image
+      $('#card-pic').fadeOut(175, function() {
+        $('#card-pic').attr('src', $users.data[getUserName].cardpic);
+        $('#card-pic').attr('alt', $users.data[getUserName].userName);            
+        $('#card-pic').fadeTo(300, 1);
+      });
 
-    $('#card-userNameLink, #card-userHandleLink, #card-profileDescription').fadeOut(175, function() {
-      $('#card-userNameLink, #card-userHandleLink').removeClass();
-      $('#card-userNameLink, #card-userHandleLink').addClass('tweetClickListener ' + getUserName);
-      $('#card-userNameLink').text($users.data[getUserName].userName)
-      $('#card-userHandleLink').text('@'+getUserName)
-      $('#card-profileDescription').text('The Twittler Page of ' + $users.data[getUserName].userName);
-      $('#card-userNameLink, #card-userHandleLink, #card-profileDescription').fadeTo(200, 1);
-    });
+      // replace card name, link and description
+      $('#card-userNameLink, #card-userHandleLink, #card-profileDescription').fadeOut(175, function() {
+        $('#card-userNameLink, #card-userHandleLink').removeClass();
+        $('#card-userNameLink, #card-userHandleLink').addClass('tweetClickListener ' + getUserName);
+        $('#card-userNameLink').text($users.data[getUserName].userName)
+        $('#card-userHandleLink').text('@'+getUserName)
+        $('#card-profileDescription').text('The Twittler Page of ' + $users.data[getUserName].userName);
+        $('#card-userNameLink, #card-userHandleLink, #card-profileDescription').fadeTo(200, 1);
+      });
 
-    $('#poster-pic').fadeOut(50, function() {
-      $('#poster-pic').attr('src', $users.data[getUserName].poster);
-      $('#poster-pic').fadeTo(300, 1);
-    });
+      // replace above feed poster image
+      $('#poster-pic').fadeOut(50, function() {
+        $('#poster-pic').attr('src', $users.data[getUserName].poster);
+        $('#poster-pic').fadeTo(300, 1);
+      });
 
-    if(getUserName === 'eaplato'){
-      $('.tweetVisibility').show();
-      streamRestrict = false;
-    } else {
-      $('.tweetVisibility').not('.' + getUserName).hide();
-      showPage(getUserName);
+      // my all user stream vs. individual user streams
+      if(getUserName === 'eaplato'){
+        $('.tweetVisibility').show();
+        streamRestrict = false;
+        currentUser = 'eaplato';
+      } else {
+        $('.tweetVisibility').not('.' + getUserName).hide();
+        showPage(getUserName);
+      }
     }
   });
 
+  // display single user page
   function showPage(input){
     setStreamRestriction(input);  
     let streamLength = $users[input].length;
@@ -123,22 +139,14 @@ $(document).ready(function(){
     for(var i = 0; i < streamLength; i++) {
 
         let tweet = $users[input][i];
-
         let $first = $('.first');
-
-        let $tweetDetails = $(
-          '<li class="tweetDetails ' + input + ' tweetVisibility tweetClickListener"><div><strong>' 
-          + $users.data[input].userName + '</strong> <span class="userHandle">@' 
-          + input + '</span> &middot; ' + getTime(tweet) + '</div>' 
-          +'<div>'+ tweet.message + '</div></li>');
-
-        // addTopHashes(tweet.message);
-
+        let $tweetDetails = makeTweet(tweet);
         $first.prepend($tweetDetails);
     }
     $users.data[input].tweetCount = streamLength;
   };
 
+  // restrict the stream to single user and set that user 
   function setStreamRestriction(inputName){
     streamRestrict = true;
     currentUser = inputName;
@@ -150,6 +158,15 @@ $(document).ready(function(){
     let reformatDate = timeTweetedInput.slice(4, 24);
     let timeAgo = moment(reformatDate, 'MMM DD YYYY h:mma ZZ').fromNow();
     return timeAgo;
+  };
+
+  // make tweet function
+  function makeTweet(tweet){
+    return $(
+          '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener"><div><strong>' 
+          + $users.data[tweet.user].userName + '</strong> <span>@' 
+          + tweet.user + '</span> &middot; ' + getTime(tweet) + '</div>' 
+          +'<div>'+ tweet.message + '</div></li>');
   };
 
   // tweet modal
@@ -172,7 +189,8 @@ $(document).ready(function(){
     $('.tweetModal').fadeOut(400);
   });
 
-  $('#modal-submit').on('click', function() {
+  $('#modal-submit').on('click', function(e) {
+    e.preventDefault();
     $('.tweetModal').fadeOut(400);
   });
 
@@ -204,7 +222,8 @@ $(document).ready(function(){
     });
   }
 
-  $('#refreshTopHashes').on('click', function(){
+  // append li items of <= top 5 hashes
+  function showTopHashes(){
     searchTopHashes();
     $('.addedTopHash').remove();
     let topHashes = sortTopHashes();
@@ -213,7 +232,9 @@ $(document).ready(function(){
     for(var i = 0; i < len; i++){
       $('#topHashes').append('<li class="addedTopHash">#'+topHashes[i]+'</li>');
     }
-  });
+  };
+
+  $('#refreshTopHashes').on('click', showTopHashes);
 
   // external tool tip for hover on small pictures
   var changeTooltipPosition = function(event) {

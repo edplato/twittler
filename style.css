@@ -88,7 +88,7 @@ body {
 }
 
 .tweet-stream {
-  width: 584px;
+  width: 604px;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -109,6 +109,7 @@ body {
   padding: 10px;
   background: #fff;
 }
+
 /*
   =====================
   Clearfix
@@ -284,9 +285,12 @@ a {
   overflow: hidden;
 }
 
-.header-poster img{
+.header-poster img {
   vertical-align: top;
   display: block;
+}
+
+#poster-pic {
   width: 100%;
 }
 
@@ -296,7 +300,6 @@ a {
   background: #fff;
   border-bottom: 2px solid rgba(0, 0, 0, 0.2);
 }
-
 /*
   ========================================
   Navigation
@@ -359,7 +362,11 @@ a {
 }
 
 #card-userHandleLink {
-  color: grey;
+  color: #888;
+}
+
+#card-profileDescription {
+  color: #555;
 }
 
 .small-profile-pic {
@@ -466,7 +473,7 @@ a {
 }
 
 .legal a {
-  color: grey;
+  color: #888;
 }
 
 .advertise {
@@ -569,4 +576,22 @@ a {
   color: #222;
   text-decoration: none;
   cursor: pointer;
+}
+
+/*
+  ========================================
+  Mobile Responsiveness
+  ========================================
+*/
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) {
+  .right-col {
+    display: none;
+  }
+  .tweetDetails { 
+    font-size: 22px;
+  }
+  .tweet-stream {
+    width: 880px;
+  }
 }
