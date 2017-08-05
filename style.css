@@ -260,7 +260,7 @@ a {
   box-shadow: 0 0 0 2px rgba(29, 161, 242, 0.8);
 }
 
-.header-tweet-button {
+.tweet-button {
   background: #4db5f5;
   color: white;
   font-weight: 700;
@@ -271,11 +271,11 @@ a {
   outline: none;
 }
 
-.header-tweet-button:hover {
+.tweet-button:hover {
   background: #1da1f2;
 }
 
-.header-tweet-button:active {
+.tweet-button:active {
   box-shadow: 0 0 0 2px rgba(29, 161, 242, 0.5);
 }
 
@@ -462,4 +462,83 @@ a {
   background-color:#333;
   position: absolute;
   z-index: 2;
+}
+
+/*
+  ========================================
+  Tweet Modal
+  ========================================
+*/
+
+.tweetModal {
+  display: none; 
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; 
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background-color: #c4e6fc;
+  border-radius: 8px;
+  margin: 15% auto; 
+  border: 1px solid #888;
+  width: 40%; 
+}
+
+.modal-heading {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom: 1px solid #b8bcc0;
+  background-color: #fff;
+  padding: 5px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.modal-heading h3 {
+  margin-top: 22px;
+}
+
+#modal-form {
+  padding: 10px;
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 30px;
+}
+
+#modal-textarea {
+  font-size: 18px;
+  width: 100%;
+  height: 80px;
+  border-radius: 6px;
+  resize: none;
+}
+
+#modal-charRemaining {
+  float: right;
+  margin: 5px 10px 0 0;
+  color: #898b8c;
+}
+
+#modal-submit {
+  float: right;
+}
+
+.close {
+  color: #888;
+  float: right;
+  padding-right: 10px;
+  font-size: 38px;
+}
+
+.close:hover,
+.close:focus {
+  color: #222;
+  text-decoration: none;
+  cursor: pointer;
 }

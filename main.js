@@ -146,6 +146,30 @@ $(document).ready(function(){
     return timeAgo;
   };
 
+  // tweet modal
+  $('#header-tweet-button').on('click', function() {
+    $('.tweetModal').fadeIn(200);
+    // reset tweet box
+    $('#modal-textarea').val('');
+    $('#modal-charRemaining').text(140 + ' characters remaining');
+
+    // key up to track characters remaining - max length prevents >140 char
+    $('#modal-textarea').on('keyup', function(){
+      let tweetText = $('#modal-textarea').val();
+      let charRemaining = tweetText.length;
+      $('#modal-charRemaining').text(140-charRemaining + ' characters remaining');
+    });
+
+  });
+
+  $('.close').on('click', function() {
+    $('.tweetModal').fadeOut(400);
+  });
+
+  $('#modal-submit').on('click', function() {
+    $('.tweetModal').fadeOut(400);
+  });
+  
   // external tool tip for hover on small pictures
   var changeTooltipPosition = function(event) {
     var tooltipX = event.pageX - 8;
