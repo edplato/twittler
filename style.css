@@ -335,6 +335,10 @@ a {
   vertical-align: top;
 }
 
+.card li {
+  cursor: pointer;
+}
+
 .small-profile-pic {
   height: 42px;
   border-radius: 20px;

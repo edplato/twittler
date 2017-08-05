@@ -87,8 +87,8 @@ $(document).ready(function(){
     });
 
     $('#card-userNameLink, #card-userHandleLink, #card-profileDescription').fadeOut(175, function() {
-      let userTwitterLink = 'https://twitter.com/' + getUserName;
-      $('#card-userNameLink, #card-userHandleLink').attr('href', userTwitterLink)
+      $('#card-userNameLink, #card-userHandleLink').removeClass();
+      $('#card-userNameLink, #card-userHandleLink').addClass('tweetClickListener ' + getUserName);
       $('#card-userNameLink').text($users.data[getUserName].userName)
       $('#card-userHandleLink').text('@'+getUserName)
       $('#card-profileDescription').text('The Official Twittler Page of ' + $users.data[getUserName].userName);
