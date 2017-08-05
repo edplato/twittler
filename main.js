@@ -43,6 +43,7 @@ $(document).ready(function(){
   // constant stream interval to grab new tweets
   setInterval(function() {
 
+    // different action for single user vs all users
     if(streamRestrict) {
       var len = $users[currentUser].length;
       var tweet = $users[currentUser][len-1];
@@ -62,7 +63,9 @@ $(document).ready(function(){
     let $first = $('.first');
 
     var $tweetDetails = $(
-      '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener"><div><strong>' + $users.data[tweet.user].userName + '</strong> <span class="userHandle">@' + tweet.user + '</span> &middot; ' + getTime(tweet) + '</div>' 
+      '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener"><div><strong>' 
+      + $users.data[tweet.user].userName + '</strong> <span class="userHandle">@' 
+      + tweet.user + '</span> &middot; ' + getTime(tweet) + '</div>' 
       +'<div>'+ tweet.message + '</div></li>');
 
     $first.prepend($tweetDetails);
@@ -91,7 +94,7 @@ $(document).ready(function(){
       $('#card-userNameLink, #card-userHandleLink').addClass('tweetClickListener ' + getUserName);
       $('#card-userNameLink').text($users.data[getUserName].userName)
       $('#card-userHandleLink').text('@'+getUserName)
-      $('#card-profileDescription').text('The Official Twittler Page of ' + $users.data[getUserName].userName);
+      $('#card-profileDescription').text('The Twittler Page of ' + $users.data[getUserName].userName);
       $('#card-userNameLink, #card-userHandleLink, #card-profileDescription').fadeTo(200, 1);
     });
 
@@ -115,10 +118,14 @@ $(document).ready(function(){
 
     for(var i = 0; i < streamLength; i++) {
 
-        let $first = $('.first');
         let tweet = $users[input][i];
+
+        let $first = $('.first');
+
         let $tweetDetails = $(
-          '<li class="tweetDetails ' + input + ' tweetVisibility tweetClickListener"><div><strong>' + $users.data[input].userName + '</strong> <span class="userHandle">@' + input + '</span> &middot; ' + getTime(tweet) + '</div>' 
+          '<li class="tweetDetails ' + input + ' tweetVisibility tweetClickListener"><div><strong>' 
+          + $users.data[input].userName + '</strong> <span class="userHandle">@' 
+          + input + '</span> &middot; ' + getTime(tweet) + '</div>' 
           +'<div>'+ tweet.message + '</div></li>');
 
         $first.prepend($tweetDetails);
