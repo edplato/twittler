@@ -3,6 +3,8 @@ $(document).ready(function(){
   
   // add global user info
   var $users = streams.users;
+  visitor = 'eaplato';
+
   $users.data = {};
 
   $users.eaplato = [];
@@ -166,7 +168,7 @@ $(document).ready(function(){
   function makeTweet(tweet, singleStream){
     return $(
           '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener ' + singleStream 
-          + '"><div class="tweetProfileImage"><img src='+ $users.data[tweet.user].cardpic +' class="small-profile-pic"></div><div><strong>' 
+          + '"><div class="tweetProfileImage"><img src='+ $users.data[tweet.user].cardpic +' class="small-profile-pic"></div><div class="tweetMessageBox"><strong>' 
           + $users.data[tweet.user].userName + '</strong> <span>@' 
           + tweet.user + '</span> &middot; ' + getTime(tweet) + '</div>' 
           + '<div>'+ tweet.message + '</div></li>');
@@ -192,8 +194,13 @@ $(document).ready(function(){
     $('.tweetModal').fadeOut(400);
   });
 
+  // add tweet from user account on submit
   $('#modal-submit').on('click', function(e) {
     e.preventDefault();
+    let message = $('#modal-textarea').val();
+    writeTweet(message);
+    let streamLength = $users.eaplato.length;
+    $users.eaplato[streamLength-1].created_at = new Date();
     $('.tweetModal').fadeOut(400);
   });
 
