@@ -210,6 +210,16 @@ $(document).ready(function(){
     }
   });
 
+  // prevent default submit reload behavior for search box in nav
+  $('.form-search').on('submit', function(e) {
+    e.preventDefault();
+  });
+
+  // prevent page jump on a tag click
+  $('a').on('click', function(e) {
+    e.preventDefault();
+  });
+
   // top hashes in tweets
   // find hashes in tweet messages and add to topHashes object
   function searchTopHashes(){
