@@ -574,6 +574,14 @@ img {
   resize: none;
 }
 
+#modal-emptyWarning {
+  display: none;
+  float: left;
+  margin: 5px 0 0 5px;
+  color: red;
+
+}
+
 #modal-charRemaining {
   float: right;
   margin: 5px 10px 0 0;

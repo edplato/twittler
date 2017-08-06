@@ -177,9 +177,10 @@ $(document).ready(function(){
   // tweet modal
   $('#header-tweet-button').on('click', function() {
     $('.tweetModal').fadeIn(200);
-    // reset tweet box
+    // reset tweet box\
     $('#modal-textarea').val('');
     $('#modal-charRemaining').text(140 + ' characters remaining');
+    $('#modal-emptyWarning').hide();
 
     // key up to track characters remaining - max length prevents >140 char
     $('#modal-textarea').on('keyup', function(){
@@ -198,10 +199,15 @@ $(document).ready(function(){
   $('#modal-submit').on('click', function(e) {
     e.preventDefault();
     let message = $('#modal-textarea').val();
-    writeTweet(message);
-    let streamLength = $users.eaplato.length;
-    $users.eaplato[streamLength-1].created_at = new Date();
-    $('.tweetModal').fadeOut(400);
+    // handle empty submit warning
+    if(message.length === 0){
+      $('#modal-emptyWarning').show();
+    } else {
+      writeTweet(message);
+      let streamLength = $users.eaplato.length;
+      $users.eaplato[streamLength-1].created_at = new Date();
+      $('.tweetModal').fadeOut(400);
+    }
   });
 
   // top hashes in tweets
