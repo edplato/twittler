@@ -49,7 +49,7 @@ $(document).ready(function(){
     let tweet = streams.home[index];
     let $first = $('.first');
     let $tweetDetails = makeTweet(tweet);
-    $first.prepend($tweetDetails);
+    $($tweetDetails).hide().prependTo($first).fadeIn('slow');
     index++;
   };
 
@@ -76,12 +76,12 @@ $(document).ready(function(){
     // delay to allow stream to catch up if running low
     if(delayParameter1 <= delayParameter2){
       setTimeout(function(){
-      }, 3000);
+      }, 2000);
     } else {
 
     // prepend tweet top top of stream
     let $first = $('.first');
-    $first.prepend($tweetDetails);
+    $($tweetDetails).hide().prependTo($first).fadeIn('slow');
 
     // counter based on single user vs all user stream
     if(streamRestrict) { 
@@ -92,6 +92,20 @@ $(document).ready(function(){
 
     }
   }, 2500);
+
+  // update relative tweet time 
+  function updateTime(){
+    $('.tweetTime').each(function() {
+      let timeCreated = $(this).data('timemade');
+      let getRelativeTime = getTime(timeCreated);
+      $(this).text(getRelativeTime);
+    })
+  };
+
+    // timer to update tweet time every minute
+  setInterval(function() {
+    updateTime();
+  }, 60000);
 
   // faux page change on user click 
   $('ul').on('click', '.tweetClickListener', function() {
@@ -132,6 +146,7 @@ $(document).ready(function(){
         $('.tweetVisibility').not('.' + getUserName).hide();
         showPage(getUserName);
       }
+      updateTime();
     }
   });
 
@@ -145,7 +160,7 @@ $(document).ready(function(){
         let tweet = $users[input][i];
         let $first = $('.first');
         let $tweetDetails = makeTweet(tweet, 'singleStream');
-        $first.prepend($tweetDetails);
+        $($tweetDetails).hide().prependTo($first).fadeIn('slow');
     }
     $users.data[input].tweetCount = streamLength;
   };
@@ -158,7 +173,7 @@ $(document).ready(function(){
 
   // get time helper function
   function getTime(tweetInput){
-    let timeTweetedInput = tweetInput.created_at.toString();
+    let timeTweetedInput = tweetInput.toString();
     let reformatDate = timeTweetedInput.slice(4, 24);
     let timeAgo = moment(reformatDate, 'MMM DD YYYY h:mma ZZ').fromNow();
     return timeAgo;
@@ -170,7 +185,7 @@ $(document).ready(function(){
           '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener ' + singleStream 
           + '"><div class="tweetProfileImage"><img src='+ $users.data[tweet.user].cardpic +' class="small-profile-pic"></div><div class="tweetMessageBox"><strong>' 
           + $users.data[tweet.user].userName + '</strong> <span>@' 
-          + tweet.user + '</span> &middot; ' + getTime(tweet) + '</div>' 
+          + tweet.user + '</span> &middot; <span class="tweetTime" data-timemade="' + tweet.created_at +'">' + getTime(tweet.created_at) + '</span></div>' 
           + '<div>'+ tweet.message + '</div></li>');
   };
 
@@ -281,7 +296,7 @@ $(document).ready(function(){
      $('div.tooltip').remove();
   };
 
-  $(".small-profile-pic").bind({
+  $(".toolTip").bind({
      mousemove : changeTooltipPosition,
      mouseenter : showTooltip,
      mouseleave: hideTooltip
