@@ -181,8 +181,9 @@ $(document).ready(function(){
 
   // make tweet function
   function makeTweet(tweet, singleStream){
+    let singleStreamClass = !singleStream ? '' : singleStream;
     return $(
-          '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener ' + singleStream 
+          '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener ' + singleStreamClass 
           + '"><div class="tweetProfileImage"><img src='+ $users.data[tweet.user].cardpic +' class="small-profile-pic"></div><div class="tweetMessageBox"><strong>' 
           + $users.data[tweet.user].userName + '</strong> <span>@' 
           + tweet.user + '</span> &middot; <span class="tweetTime" data-timemade="' + tweet.created_at +'">' + getTime(tweet.created_at) + '</span></div>' 
