@@ -165,10 +165,11 @@ $(document).ready(function(){
   // make tweet function
   function makeTweet(tweet, singleStream){
     return $(
-          '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener ' + singleStream +'"><div><strong>' 
+          '<li class="tweetDetails ' + tweet.user + ' tweetVisibility tweetClickListener ' + singleStream 
+          + '"><div class="tweetProfileImage"><img src='+ $users.data[tweet.user].cardpic +' class="small-profile-pic"></div><div><strong>' 
           + $users.data[tweet.user].userName + '</strong> <span>@' 
           + tweet.user + '</span> &middot; ' + getTime(tweet) + '</div>' 
-          +'<div>'+ tweet.message + '</div></li>');
+          + '<div>'+ tweet.message + '</div></li>');
   };
 
   // tweet modal
